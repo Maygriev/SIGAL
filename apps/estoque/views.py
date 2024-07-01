@@ -40,4 +40,4 @@ def add_material(request):
             messages.success(request, 'Novo Material Cadastrado!')
             return redirect('index')
     
-    return render (request, 'estoque/novo_material.html', {'form': form})
+    return render (request, 'estoque/novoMaterial.html', {'form': form})
