@@ -1,0 +1,28 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}
+ - Home
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container-sm">
+        <div class="list-group">
+            {% if cards %}
+            {% for material in cards %}
+            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+                {% if material.foto == "" or material.foto == null %}
+                    <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{% static '/assets/imagens/galeria/not-found.png' %}" alt="foto">
+                {% else %}
+                    <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{{ material.foto.url }}" alt="foto">
+                {% endif %}
+                {{material.desc}} - {{material.qtd}} - {{material.tipo}}
+            </a>
+            {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}
