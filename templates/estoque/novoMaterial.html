@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}
+ - Adicionar Material
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container-sm">
+        <form action="{% url 'add-material' %}" method="POST" class="mx-auto" style="max-width: 600px;" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+            <div class="mb-3" style="margin-bottom: 10px;">
+                <label for="{{ field.id_for_label }}" class="form-label">{{field.label}}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-dark">Adicionar Material</button>
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

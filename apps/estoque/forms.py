@@ -17,8 +17,8 @@ class MaterialForms(forms.ModelForm):
 
         widgets = {
             "desc": forms.TextInput(attrs={"class":"form-control"}),
-            "categoria": forms.TextInput(attrs={"class":"form-control"}),
-            "qtd": forms.Select(attrs={"class":"form-control"}),
-            "tipo": forms.Textarea(attrs={"class":"form-control"}),
+            "categoria": forms.Select(attrs={"class":"form-control"}),
+            "qtd": forms.NumberInput(attrs={"class":"form-control"}),
+            "tipo": forms.Select(attrs={"class":"form-control"}),
             "foto": forms.FileInput(attrs={"class":"form-control"}),
         }
