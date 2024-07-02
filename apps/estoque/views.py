@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from apps.estoque.models import Material
 from apps.estoque.forms import MaterialForms
@@ -19,15 +20,17 @@ def home(request):
         
         return render(request, "estoque/index.html")
 
-def list_material(request):
+def listMaterial(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    materiais = Material.objects.order_by("-id")
-    return render(request, 'estoque/listar.html', {"cards": materiais})
+    materiais = Paginator(Material.objects.order_by("-id"), 2)
+    page_number = request.GET.get("page")
+    page_obj = materiais.get_page(page_number)
+    return render(request, 'estoque/listar.html', {"cards": page_obj})
 
-def add_material(request):
+def addMaterial(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Usuário não logado')
         return redirect('login')

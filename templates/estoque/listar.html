@@ -8,21 +8,78 @@
 {% block content %}
 <body>
     <div class="container-sm">
-        <div class="list-group">
-            {% if cards %}
-            {% for material in cards %}
-            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
-                {% if material.foto == "" or material.foto == null %}
-                    <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{% static '/assets/imagens/galeria/not-found.png' %}" alt="foto">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if cards %}
+                {% for material in cards %}
+                <tr>
+                    <th scope="row">{{material.id}}</th>
+                    <td>{{material.desc}}</td>
+                    <td>{{material.qtd}}</td>
+                    <td>{{material.tipo}}</td>
+                    {% if material.foto == "" or material.foto == null %}
+                        <td><img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{% static '/assets/imagens/galeria/not-found.png' %}" alt="foto"></td>
+                    {% else %}
+                        <td><img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{{ material.foto.url }}" alt="foto"></td>
+                    {% endif %}
+                    <td>
+                        <a class="btn btn-dark" href="#" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </a>
+                        <a class="btn btn-dark" href="#" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+                            </svg>
+                        </a>
+                        <a class="btn btn-dark" href="#" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor%}
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        {% if cards.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">Primeira</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ cards.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">{{ cards.number }}</a>
+                        </li>
+                        
+                        {% if cards.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ cards.next_page_number }}">&raquo;</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ cards.paginator.num_pages }}">Ultima</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
                 {% else %}
-                    <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{{ material.foto.url }}" alt="foto">
                 {% endif %}
-                {{material.desc}} - {{material.qtd}} - {{material.tipo}}
-            </a>
-            {% endfor %}
-            {% else %}
-            {% endif %}
-        </div>
+            </tbody>
+        </table>
     </div>
 </body>
 {% endblock %}
