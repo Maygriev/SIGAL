@@ -1,7 +1,5 @@
 from django.db import models
 
-from datetime import datetime
-
 class Material(models.Model):
     OPCOES_CATEGORIA = [
         ("MAT-TIC", "Material de TIC"),
@@ -17,7 +15,7 @@ class Material(models.Model):
 
     desc = models.CharField(max_length=100, null=False, blank=False)
     categoria = models.CharField(max_length=100, choices=OPCOES_CATEGORIA, default="")
-    qtd = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
+    qtd = models.DecimalField(max_digits=8, decimal_places=1, null=False, blank=False)
     tipo = models.CharField(max_length=100, choices=OPCOES_MEDIDA, default="UND")
     foto = models.ImageField(upload_to="fotos/%Y/%m/%d/", blank=True)
 
