@@ -25,7 +25,8 @@ def listMaterial(request):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    materiais = Paginator(Material.objects.order_by("-id"), 2)
+    materiais = Material.objects.order_by("-id")
+    materiais = Paginator(materiais, 20)
     page_number = request.GET.get("page")
     page_obj = materiais.get_page(page_number)
     return render(request, 'estoque/listar.html', {"cards": page_obj})
@@ -44,3 +45,36 @@ def addMaterial(request):
             return redirect('index')
     
     return render (request, 'estoque/novoMaterial.html', {'form': form})
+
+def editMaterial(request, materialID):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+    
+    material = Material.objects.get(id=materialID)
+    form = MaterialForms(instance=material)
+
+    if request.method == 'POST':
+        form = MaterialForms(request.POST, request.FILES, instance=material)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Material Editado com Sucesso!')
+            return redirect('index')
+        
+    return render(request, 'estoque/editMaterial.html', {'form':form, 'materialID':materialID})
+
+def buscaMaterial(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+    materiais = Material.objects.order_by("-id")
+
+    if request.GET['q']:
+        itemBusca = request.GET['q']
+        if itemBusca:
+             materiais = materiais.filter(desc__icontains=itemBusca)
+
+    materiais = Paginator(materiais, 20)
+    page_number = request.GET.get("page")
+    page_obj = materiais.get_page(page_number)
+    return render(request, 'estoque/listar.html', {"cards": page_obj})
