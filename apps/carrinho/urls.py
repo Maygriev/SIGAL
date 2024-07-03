@@ -2,7 +2,7 @@ from django.urls import path
 from apps.carrinho.views import addCarrinho, detailCarrinho, remCarrinho
 
 urlpatterns = [
-    path("add/<int:product_id>/", addCarrinho, name="addCarrinho"),
-    path("remove/<int:cart_item_id>/", remCarrinho, name="remCarrinho"),
-    path("cart", detailCarrinho, name="detailCarrinho"),
+    path("add/<int:itemID>/", addCarrinho, name="add-carrinho"),
+    path("remove/<int:carrinhoItemID>/", remCarrinho, name="rem-carrinho"),
+    path("cart", detailCarrinho, name="detail-carrinho"),
 ]
