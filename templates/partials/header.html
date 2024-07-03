@@ -11,6 +11,11 @@
                 <span class="fs-5 fw-bold">SIGAL<br/></span>
                 <span class="fs-6">Sistema de Gestão de Almoxarifado</span>
             </div>
+            {% if user.is_authenticated %}
+                <div class="col align-middle text-end">
+                    <a class="btn btn-danger" href="{% url 'logout'%}" role="button">Logout</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </header>
