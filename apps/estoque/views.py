@@ -78,3 +78,13 @@ def buscaMaterial(request):
     page_number = request.GET.get("page")
     page_obj = materiais.get_page(page_number)
     return render(request, 'estoque/listar.html', {"cards": page_obj})
+
+def detailMaterial(request, materialID):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+    
+    material = Material.objects.get(id=materialID)
+    form = MaterialForms(instance=material)
+        
+    return render(request, 'estoque/detailMaterial.html', {'form':form, 'materialID':materialID})
