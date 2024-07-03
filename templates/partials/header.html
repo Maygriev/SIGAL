@@ -13,6 +13,7 @@
             </div>
             {% if user.is_authenticated %}
                 <div class="col text-end align-self-center">
+                    <a class="btn" href="#" role="button"><img style="max-width: 32px; max-height: 32px;" src="{% static '/assets/images/cart.svg' %}" alt="carrinho"></a>
                     <a class="btn btn-danger" href="{% url 'logout'%}" role="button">Logout</a>
                 </div>
             {% endif %}
