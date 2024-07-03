@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'apps.estoque.apps.EstoqueConfig',
     'apps.usuario.apps.UsuarioConfig',
+    'apps.carrinho.apps.CarrinhoConfig',
 ]
 
 MIDDLEWARE = [
