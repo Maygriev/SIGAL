@@ -9,7 +9,19 @@
 <body>
     <div class="container-sm">
         {% if material %}
-            <h1>{{material.desc}}</h1>
+            <div class="d-flex flex-row mb-3">
+                <div class="p-2">
+                    {% if material.foto == "" or material.foto == null %}
+                        <img class="img-thumbnail" style="max-width: 200px; max-height: 200px;" src="{% static '/assets/images/not-found.svg' %}" alt="foto">
+                    {% else %}
+                        <img class="img-thumbnail" style="max-width: 200px; max-height: 200px;" src="{{ material.foto.url }}" alt="foto">
+                    {% endif %}
+                </div>
+                <div class="p-2">
+                    <h1>ID: {{material.id}} </h1> 
+                    <h1>Descrição: {{material.desc}}</h1>
+                </div>
+            </div>
         {% else %}
             <h1>Material Inexistente</h1>
         {% endif%}
