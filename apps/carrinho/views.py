@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib import messages
@@ -28,11 +29,12 @@ def remCarrinho(request, carrinhoItemID):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    itemCarrinho = get_object_or_404(Carrinho, id=carrinhoItemID)
+    material = Material.objects.get(id=carrinhoItemID)
+    itemCarrinho = get_object_or_404(Carrinho, user=request.user, item=material)
 
-    if itemCarrinho.user == request.user:
+    if itemCarrinho:
         itemCarrinho.delete()
-        messages.success(request, itemCarrinho + " removido do seu Carrinho.")
+        messages.success(request, material.desc + " removido do seu Carrinho.")
 
     return redirect("detail-carrinho")
 

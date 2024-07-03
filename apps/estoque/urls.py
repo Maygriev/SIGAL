@@ -4,7 +4,7 @@ from apps.estoque.views import index, home, listMaterial, addMaterial, editMater
 urlpatterns = [
         path('', index, name='index'),
         path('home', home, name='home'),
-        path('list', listMaterial, name='list'),
+        path('list-material', listMaterial, name='list-material'),
         path('add-material', addMaterial, name='add-material'),
         path("view-material/<int:materialID>", detailMaterial, name="view-material"),
         path("edit-material/<int:materialID>", editMaterial, name="edit-material"),
