@@ -29,11 +29,15 @@ def listMaterial(request):
     materiais = Paginator(materiais, 20)
     page_number = request.GET.get("page")
     page_obj = materiais.get_page(page_number)
-    return render(request, 'estoque/listar.html', {"cards": page_obj})
+    return render(request, 'estoque/listarMaterial.html', {"cards": page_obj})
 
 def addMaterial(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Usuário não logado')
+        return redirect('login')
+    
+    if not request.user.has_perm("estoque.add_material"):
+        messages.error(request, 'Usuário não possui essa permissão')
         return redirect('login')
     
     form = MaterialForms
@@ -51,6 +55,10 @@ def editMaterial(request, materialID):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
+    if not request.user.has_perm("estoque.change_material"):
+        messages.error(request, 'Usuário não possui essa permissão')
+        return redirect('login')
+
     material = Material.objects.get(id=materialID)
     form = MaterialForms(instance=material)
 
@@ -77,7 +85,7 @@ def buscaMaterial(request):
     materiais = Paginator(materiais, 20)
     page_number = request.GET.get("page")
     page_obj = materiais.get_page(page_number)
-    return render(request, 'estoque/listar.html', {"cards": page_obj})
+    return render(request, 'estoque/listarMaterial.html', {"cards": page_obj})
 
 def detailMaterial(request, materialID):
     if not request.user.is_authenticated:
@@ -85,6 +93,5 @@ def detailMaterial(request, materialID):
         return redirect('login')
     
     material = Material.objects.get(id=materialID)
-    form = MaterialForms(instance=material)
         
-    return render(request, 'estoque/detailMaterial.html', {'form':form, 'materialID':materialID})
+    return render(request, 'estoque/detailMaterial.html', {'material':material})
