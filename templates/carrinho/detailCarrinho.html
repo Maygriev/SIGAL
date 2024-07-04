@@ -31,9 +31,9 @@
                             <td>
                                 <form name="qtdForm" action="{% url 'add-carrinho' item.item.id %}" method="get">
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary" name="qtd" value="{{ item.qtd }}-1" type="submit" action="{% url 'add-carrinho' item.item.id %}">-</button>
+                                        <a class="btn btn-dark" href="{% url 'upd-carrinho' item.item.id %}?action=l" role="button">-</a>
                                         <input class="form-control" name="qtd" type="number" value="{{ item.qtd }}" onchange="enviaQtd()">
-                                        <button class="btn btn-outline-secondary" name="qtd" value="{{ item.qtd }}+1" type="submit" action="{% url 'add-carrinho' item.item.id %}">+</button>
+                                        <a class="btn btn-dark" href="{% url 'upd-carrinho' item.item.id %}?action=p" role="button">+</a>
                                     </div>
                                 </form>
                             </td>

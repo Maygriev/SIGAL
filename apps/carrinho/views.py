@@ -43,6 +43,33 @@ def remCarrinho(request, carrinhoItemID):
 
     return redirect("detail-carrinho")
 
+def updCarrinho(request, carrinhoItemID):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+    
+    material = Material.objects.get(id=carrinhoItemID)
+    
+    itemCarrinho = Carrinho.objects.filter(user=request.user, item=material).first()
+
+    action = request.GET.get('action')
+
+    if itemCarrinho:
+        if action == 'p':
+            itemCarrinho.qtd += 1
+
+        if action == 'l':
+            itemCarrinho.qtd -= 1
+
+        if(itemCarrinho.qtd > 0):
+            itemCarrinho.save()
+            messages.success(request, material.desc + " atualizado.")
+        else:
+            itemCarrinho.delete()
+            messages.success(request, material.desc + " removido do seu Carrinho.")
+
+    return redirect("detail-carrinho")
+
 def detailCarrinho(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Usuário não logado')
