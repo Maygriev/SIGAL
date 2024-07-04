@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from apps.estoque.models import Material
-from django.urls import reverse
 
 class Carrinho(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -11,6 +10,3 @@ class Carrinho(models.Model):
 
     def __str__(self):
         return f"{self.qtd} x {self.itemDesc}"
-
-    def get_absolute_url(self):
-        return reverse("carrinho:detailCarrinho")

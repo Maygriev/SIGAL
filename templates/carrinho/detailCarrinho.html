@@ -7,6 +7,7 @@
 
 {% block content %}
 <body>
+    <script src="{% static '/scripts/autoSubmit.js' %}"></script>
     <div class="container-sm">
         {% if itemCarrinho %}
             <table class="table table-striped align-middle">
@@ -28,9 +29,11 @@
                             {% endif %}
                             <td>{{ item.itemDesc }}</td>
                             <td>
-                                <form action="{% url 'add-carrinho' item.item.id %}" method="get">
+                                <form name="qtdForm" action="{% url 'add-carrinho' item.item.id %}" method="get">
                                     <div class="input-group">
-                                        <input name="qtd" type="number" class="form-control" value="{{ item.qtd }}">
+                                        <button class="btn btn-outline-secondary" name="qtd" value="{{ item.qtd }}-1" type="submit" action="{% url 'add-carrinho' item.item.id %}">-</button>
+                                        <input class="form-control" name="qtd" type="number" value="{{ item.qtd }}" onchange="enviaQtd()">
+                                        <button class="btn btn-outline-secondary" name="qtd" value="{{ item.qtd }}+1" type="submit" action="{% url 'add-carrinho' item.item.id %}">+</button>
                                     </div>
                                 </form>
                             </td>
