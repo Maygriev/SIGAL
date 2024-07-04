@@ -18,11 +18,11 @@
                     <a class="btn position-relative" href="{% url 'detail-carrinho'%}" role="button">
                         <img style="max-width: 32px; max-height: 32px;" src="{% static '/assets/images/cart.svg' %}" alt="carrinho">
                         {# Verifica se existe algum item no carrinho para exibir o contador #}
-                        {% if not request.COOKIES.totalCarrinho == '0' %}
-                        <span class="position-absolute top-100 start-0 translate-middle p-2 badge rounded-pill bg-info">
-                            {# Atualiza com a quantidade de itens no carrinho #}
-                            {{request.COOKIES.totalCarrinho}}<span class="visually-hidden">Itens no Carrinho</span>
-                        </span>
+                        {% if request.COOKIES.totalCarrinho >= 1 %}
+                            <span class="position-absolute top-100 start-0 translate-middle p-2 badge rounded-pill bg-info">
+                                {# Atualiza com a quantidade de itens no carrinho #}
+                                {{request.COOKIES.totalCarrinho}}<span class="visually-hidden">Itens no Carrinho</span>
+                            </span>
                         {% endif %}
                     </a>
                     <a class="btn btn-danger" href="{% url 'logout'%}" role="button">Logout</a>

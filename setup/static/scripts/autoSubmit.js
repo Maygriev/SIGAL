@@ -1,3 +1,3 @@
-function enviaQtd(){
-    document.qtdForm.submit();
+function enviaQtd(id){
+    document.getElementById("qtdForm-"+id).submit();
 }

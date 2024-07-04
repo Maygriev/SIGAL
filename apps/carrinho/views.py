@@ -14,13 +14,8 @@ def addCarrinho(request, itemID):
     
     itemCarrinho = Carrinho.objects.filter(user=request.user, item=material).first()
 
-    novaQtd = request.GET.get('qtd')
-
     if itemCarrinho:
-        if novaQtd:
-            itemCarrinho.qtd = novaQtd
-        else:
-            itemCarrinho.qtd += 1
+        itemCarrinho.qtd += 1
         itemCarrinho.save()
         messages.success(request, material.desc + " adicionado ao Carrinho")
     else:
@@ -51,15 +46,11 @@ def updCarrinho(request, carrinhoItemID):
     material = Material.objects.get(id=carrinhoItemID)
     
     itemCarrinho = Carrinho.objects.filter(user=request.user, item=material).first()
+    
+    novaQtd = request.GET.get('qtd')
 
-    action = request.GET.get('action')
-
-    if itemCarrinho:
-        if action == 'p':
-            itemCarrinho.qtd += 1
-
-        if action == 'l':
-            itemCarrinho.qtd -= 1
+    if itemCarrinho and novaQtd:
+        itemCarrinho.qtd = int(novaQtd)
 
         if(itemCarrinho.qtd > 0):
             itemCarrinho.save()
