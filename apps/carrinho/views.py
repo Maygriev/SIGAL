@@ -14,12 +14,17 @@ def addCarrinho(request, itemID):
     
     itemCarrinho = Carrinho.objects.filter(user=request.user, item=material).first()
 
+    novaQtd = request.GET.get('qtd')
+
     if itemCarrinho:
-        itemCarrinho.qtd += 1
+        if novaQtd:
+            itemCarrinho.qtd = novaQtd
+        else:
+            itemCarrinho.qtd += 1
         itemCarrinho.save()
         messages.success(request, material.desc + " adicionado ao Carrinho")
     else:
-        Carrinho.objects.create(user=request.user, item=material, itemDesc=material.desc)
+        Carrinho.objects.create(user=request.user, item=material, itemDesc=material.desc, qtd=1)
         messages.success(request, material.desc + " adicionado ao Carrinho")
 
     return redirect("detail-carrinho")

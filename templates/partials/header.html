@@ -12,16 +12,16 @@
                 <span class="fs-6">Sistema de Gestão de Almoxarifado</span>
             </div>
             {# Sessão do template dedicada a exibir o botão de Carrinho e Logout #}
+            {# Verifica se existe um usuário logado#}
             {% if user.is_authenticated %}
-            {# Verifica se existe um user logado#}
                 <div class="col text-end align-self-center">
                     <a class="btn position-relative" href="{% url 'detail-carrinho'%}" role="button">
                         <img style="max-width: 32px; max-height: 32px;" src="{% static '/assets/images/cart.svg' %}" alt="carrinho">
-                        {% if request.COOKIES.totalCarrinho > 0 %}
                         {# Verifica se existe algum item no carrinho para exibir o contador #}
+                        {% if not request.COOKIES.totalCarrinho == '0' %}
                         <span class="position-absolute top-100 start-0 translate-middle p-2 badge rounded-pill bg-info">
-                            {{request.COOKIES.totalCarrinho}}<span class="visually-hidden">Itens no Carrinho</span>
                             {# Atualiza com a quantidade de itens no carrinho #}
+                            {{request.COOKIES.totalCarrinho}}<span class="visually-hidden">Itens no Carrinho</span>
                         </span>
                         {% endif %}
                     </a>
