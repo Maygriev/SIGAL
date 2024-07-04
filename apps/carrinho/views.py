@@ -73,11 +73,14 @@ def detailCarrinho(request):
         "itemCarrinho": itemCarrinho,
         "totalItems": totalItems,
     }
-
+    
     request.COOKIES['totalCarrinho'] = totalItems
 
     response = render(request, "carrinho/detailCarrinho.html", contexto)
-    
-    response.set_cookie('totalCarrinho', totalItems,samesite='Strict')
+
+    if(totalItems > 0):
+        response.set_cookie('totalCarrinho', totalItems,samesite='Strict')
+    else:
+        response.delete_cookie('totalCarrinho')    
 
     return response
