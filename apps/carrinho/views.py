@@ -51,4 +51,10 @@ def detailCarrinho(request):
         "totalItems": totalItems,
     }
 
-    return render(request, "carrinho/detailCarrinho.html", contexto)
+    request.COOKIES['totalCarrinho'] = totalItems
+
+    response = render(request, "carrinho/detailCarrinho.html", contexto)
+    
+    response.set_cookie('totalCarrinho', totalItems,samesite='Strict')
+
+    return response

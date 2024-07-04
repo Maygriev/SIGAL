@@ -15,9 +15,9 @@
                 <div class="col text-end align-self-center">
                     <a class="btn position-relative" href="{% url 'detail-carrinho'%}" role="button">
                         <img style="max-width: 32px; max-height: 32px;" src="{% static '/assets/images/cart.svg' %}" alt="carrinho">
-                        {% if true %}
-                        <span class="position-absolute top-0 start-0 translate-middle p-2 bg-dark border border-light rounded-circle">
-                            <span class="visually-hidden">Itens no Carrinho</span>
+                        {% if request.COOKIES.totalCarrinho %}
+                        <span class="position-absolute top-100 start-0 translate-middle p-2 badge rounded-pill bg-info">
+                            {{request.COOKIES.totalCarrinho}}<span class="visually-hidden">Itens no Carrinho</span>
                         </span>
                         {% endif %}
                     </a>
