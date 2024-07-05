@@ -9,11 +9,6 @@
 <body>
     <script src="{% static '/scripts/autoSubmit.js' %}"></script>
     <div class="container-sm">
-        <div class="row">
-            <div class="col text-center mx-auto">
-                <a href="{% url 'list-material'%}" class="btn btn-dark">Estoque</a>
-            </div>
-        </div>
         {% if itemCarrinho %}
             <table class="table table-striped align-middle">
                 <thead>
