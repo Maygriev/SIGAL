@@ -43,8 +43,8 @@ def myRequisitions(request):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    items = Requisition.objects.order_by("-dateReq")
-    items = Paginator(items, 20)
+    items = Requisition.objects.filter(user=request.user).order_by("-dateReq")
+    items = Paginator(items, 10)
     page_number = request.GET.get("page")
     page_obj = items.get_page(page_number)
     
