@@ -18,20 +18,7 @@
                 </div>
             </form>
         </div>
-        <table class="table table-striped align-middle">
-            <thead>
-                <tr>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">QTD</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% include 'estoque/materialTable.html' %}
-            </tbody>
-        </table>
+        {% include 'estoque/materialTable.html' %}
         <nav aria-label="Paginação da Lista de Materiais">
             <ul class="pagination">
                 {% if cards.has_previous %}
