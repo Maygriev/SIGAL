@@ -1,11 +1,11 @@
 {% if user.is_authenticated %}
-<div class="container-sm mb-1">
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid justify-content-start">
-            <a href="{% url 'home'%}" class="btn btn-dark">Home</a>
-            <a href="{% url 'list-material'%}" class="btn btn-dark">Estoque</a>
-            <a href="{% url 'my-requisitions'%}" class="btn btn-dark">Requisições</a>
+<nav class="navbar sticky-top navbar-dark bg-dark container-sm mb-3">
+    <div class="container-fluid justify-content-start">
+        <a href="{% url 'home'%}" class="navbar-brand">Home</a>
+        <div class="navbar-nav flex-row">
+            <a href="{% url 'list-material'%}" class="nav-link p-2">Estoque</a>
+            <a href="{% url 'my-requisitions'%}" class="nav-link p-2">Requisições</a>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
 {% endif %}

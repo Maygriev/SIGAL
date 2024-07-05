@@ -14,10 +14,17 @@
         {% for item in cards %}
         <tr class="text-center">
             <td>{{item.id}}</td>
-            <td>{{item.dateReq}}</td>
+            <td>{{item.dateReq|date:'d/m/Y - H:i'}}</td>
             <td>
                 {% for material in item.requisitionitem_set.all %}
-                    <p class="text-start text-wrap">{{material}}</p>
+                    <p class="text-start text-wrap">
+                    {% if material.itemMat.foto == "" or material.itemMat.foto == null %}
+                        <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{% static '/assets/images/not-found.svg' %}" alt="foto">
+                    {% else %}
+                        <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{{ material.itemMat.foto.url }}" alt="foto">
+                    {% endif %}
+                        {{material}}
+                    </p>
                 {% endfor%}
             </td>
             <td>{{item.status}}</td>

@@ -1,0 +1,38 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}
+ - Detalhar Requisição
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container-sm">
+        {% if req %}
+            <div class="d-flex flex-row mb-3 justify-content-center">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Requisição #{{req.id}}</li>
+                    <li class="list-group-item">Enviado: {{req.dateReq|date:'d/m/Y - H:i'}}</li>
+                    <li class="list-group-item">
+                        Material Solicitado:
+                        <ul class="list-group">
+                            {% for material in req.requisitionitem_set.all %}
+                                <li class="list-group-item">
+                                    {% if material.itemMat.foto == "" or material.itemMat.foto == null %}
+                                        <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{% static '/assets/images/not-found.svg' %}" alt="foto">
+                                    {% else %}
+                                        <img class="img-thumbnail" style="max-width: 64px; max-height: 64px;" src="{{ material.itemMat.foto.url }}" alt="foto">
+                                    {% endif %}
+                                    {{material}}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <h1>Requisição Inexistente</h1>
+        {% endif%}
+    </div>
+</body>
+{% endblock %}

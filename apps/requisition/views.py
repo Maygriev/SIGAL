@@ -5,14 +5,15 @@ from django.core.paginator import Paginator
 
 from apps.carrinho.models import Carrinho
 from apps.requisition.models import Requisition, RequisitionItem
-from apps.estoque.models import Material
 
 def viewRequisition(request, reqID):
     if not request.user.is_authenticated:
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    pass
+    req = get_object_or_404(Requisition, id=reqID)
+        
+    return render(request, 'requisition/viewRequisition.html', {'req':req})
 
 def addRequisition(request):
     if not request.user.is_authenticated:

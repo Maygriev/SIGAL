@@ -10,7 +10,7 @@ def addCarrinho(request, itemID):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    material = Material.objects.get(id=itemID)
+    material = get_object_or_404(Material, id=itemID)
     
     itemCarrinho = Carrinho.objects.filter(user=request.user, item=material).first()
 
@@ -29,7 +29,7 @@ def remCarrinho(request, carrinhoItemID):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    material = Material.objects.get(id=carrinhoItemID)
+    material = get_object_or_404(Material, id=carrinhoItemID)
     itemCarrinho = get_object_or_404(Carrinho, user=request.user, item=material)
 
     if itemCarrinho:
@@ -43,7 +43,7 @@ def updCarrinho(request, carrinhoItemID):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
     
-    material = Material.objects.get(id=carrinhoItemID)
+    material = get_object_or_404(Material, id=carrinhoItemID)
     
     itemCarrinho = Carrinho.objects.filter(user=request.user, item=material).first()
     
