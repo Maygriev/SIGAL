@@ -1,0 +1,49 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}
+ - Minhas Requisições
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container-sm mt-3">
+        <div>
+            <form class="row row-cols-lg-auto g-3" action="{% url 'home' %}" method="get">
+                <div class="col-12">
+                    <input name="q" class="form-control" type="text" placeholder="Digite sua busca...">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-dark">Buscar</button>
+                </div>
+            </form>
+        </div>
+        {% include 'requisition/requisitionTable.html' %}
+        <nav aria-label="Paginação da Lista de Materiais">
+            <ul class="pagination">
+                {% if cards.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">Primeira</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ cards.previous_page_number }}">{{ cards.previous_page_number }}</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">{{ cards.number }}</a>
+                </li>
+                
+                {% if cards.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ cards.next_page_number }}">{{ cards.next_page_number }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ cards.paginator.num_pages }}">Ultima</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</body>
+{% endblock %}
